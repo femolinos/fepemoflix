@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import PageDefault from '../../../components/PageDefault';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
+import Button from '../../../components/Button';
 
 function CadastroCategoria() {
   const valoresIniciais = {
     nome: '',
     descricao: '',
-    cor: ''
+    cor: '',
   };
-  
+
   const [categorias, setCategorias] = useState([]);
   const [values, setValues] = useState(valoresIniciais);
-
 
   function setValue(chave, valor) {
     // chave: nome, descricao etc.
     setValues({
       ...values,
-      [chave]: valor // nome: 'valor'
+      [chave]: valor, // nome: 'valor'
     });
   }
 
@@ -26,23 +26,39 @@ function CadastroCategoria() {
     // infosDoEvento = variável que captura vários parâmetros durante a mudança do campo
     setValue(
       infosDoEvento.target.getAttribute('name'),
-      infosDoEvento.target.value
+      infosDoEvento.target.value,
     );
   }
 
-  return(
+  useEffect(() => {
+    console.log("arô");
+    const URL = 'http://localhost:8080/categorias';
+
+    fetch(URL).then(async (respostaDoServidor) => {
+      const resposta = await respostaDoServidor.json();
+      setCategorias([
+        ...resposta
+      ]);
+    });
+  }, []);
+
+  return (
     <PageDefault>
-      <h1>Cadastro de Categoria: {values.nome}</h1>
+      <h1>
+        Cadastro de Categoria:
+        {values.nome}
+      </h1>
 
       <form onSubmit={function handleSubmit(infosDoEvento) {
         infosDoEvento.preventDefault(); /* Essa linha previne que o botão tenha o comportamento default de submit do formulário */
         setCategorias([ /* Esta função é responsável por atualizar o componente <ul> da linha 74 ao clicar no botão de enviar */
           ...categorias,
-          values
+          values,
         ]);
 
         setValues(valoresIniciais);
-      }}>
+      }}
+      >
         {/* State */}
         <FormField
           label="Nome da Categoria"
@@ -53,7 +69,7 @@ function CadastroCategoria() {
         />
         <FormField
           label="Descrição"
-          type="text"
+          type="textarea"
           name="descricao"
           value={values.descricao}
           onChange={handleChange}
@@ -66,20 +82,24 @@ function CadastroCategoria() {
           onChange={handleChange}
         />
 
-        <button>
+        <Button>
           Cadastrar
-        </button>
+        </Button>
       </form>
 
+      {categorias.length === 0 && (
+        <div>
+          Loading...
+        </div>
+      )}
+
       <ul>
-        {categorias.map((categoria, indice) => {
-          return (
-            // Esta propriedade "key" serve para evitar problemas de índice duplicado na exibição da lista. Normalmente é o "id" vindo do back-end
-            <li key={`${categoria}${indice}`}>
-              {categoria.nome}
-            </li>
-          );
-        })}
+        {categorias.map((categoria) => (
+          // Esta propriedade "key" serve para evitar problemas de índice duplicado na exibição da lista. Normalmente é o "id" vindo do back-end
+          <li key={`${categoria.nome}`}>
+            {categoria.nome}
+          </li>
+        ))}
       </ul>
 
       <Link to="/">
