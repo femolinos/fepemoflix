@@ -2,15 +2,88 @@
   "categorias": [
     {
       "id": 1,
-      "nome": "Front End",
-      "descricao": "Uma categoria bacanudassa" ,
-      "cor": "#CBD1FF"
+      "titulo": "Front End",
+      "cor": "#63D1FF",
+      "link_extra": {
+        "text": "Formação de Front End na Alura",
+        "url": "https://www.alura.com.br/cursos-online-front-end"
+      }
     },
     {
       "id": 2,
-      "nome": "Back End",
-      "descricao": "Outra categoria bacanudassa" ,
-      "cor": "#CBD1FF"
+      "titulo": "Back End",
+      "cor": "#00C81F",
+      "link_extra": {
+        "text": "Formação de Back End na Alura",
+        "url": "https://www.alura.com.br/cursos-online-programacao"
+      }
+    },
+    {
+      "id": 3,
+      "titulo": "Data Science e Inteligência Artificial",
+      "cor": "#9CD33B",
+      "link_extra": {
+        "text": "Cursos de Data Science na Alura",
+        "url": "https://www.alura.com.br/cursos-online-mobile"
+      }
+    },
+    {
+      "id": 4,
+      "titulo": "Filmes",
+      "cor": "orange"
+    },
+    {
+      "id": 5,
+      "titulo": "Games",
+      "cor": "red",
+      "link_extra": {
+        "text": "Formação de Jogos na Alura",
+        "url": "https://www.alura.com.br/cursos-online-front-end"
+      }
+    }
+  ],
+  "videos": [
+    {
+      "id": 1,
+      "categoriaId": 1,
+      "titulo": "O que estudar para conseguir um emprego front-end",
+      "url": "https://www.youtube.com/watch?v=HxVGCjTtzOQ"
+    },
+    {
+      "id": 2,
+      "categoriaId": 2,
+      "titulo": "Carreira Backend: O que estudar?",
+      "url": "https://www.youtube.com/watch?v=DmgiRK-yZ_A"
+    },
+    {
+      "id": 3,
+      "categoriaId": 3,
+      "titulo": "O que é Data Science? #HipsterPontoTube",
+      "url": "https://www.youtube.com/watch?v=5b9Z8toVaAU"
+    },
+    {
+      "id": 4,
+      "categoriaId": 4,
+      "titulo": "Vingadores: Ultimato | Trailer Legendado",
+      "url": "https://www.youtube.com/watch?v=g6ng8iy-l0U"
+    },
+    {
+      "id": 5,
+      "categoriaId": 5,
+      "titulo": "Cyberpunk 2077 - Official E3 2019 Cinematic Trailer",
+      "url": "https://www.youtube.com/watch?v=qIcTM8WXFjk"
+    },
+    {
+      "titulo": "Vídeo padrão",
+      "url": "https://www.youtube.com/watch?v=PRqRvtQElvA",
+      "categoriaId": 2,
+      "id": 6
+    },
+    {
+      "titulo": "Vídeo padrão",
+      "url": "https://www.youtube.com/watch?v=PRqRvtQElvA",
+      "categoriaId": 5,
+      "id": 7
     }
   ]
 }

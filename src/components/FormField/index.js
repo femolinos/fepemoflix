@@ -60,7 +60,7 @@ const Input = styled.input`
   }
 
   &:focus:not([type="color"]) + span { /* Esse cara é responsável por fazer o label dentro do input fazer a transição para cima do campo */
-    transform: scale(.6) translateY(-10px);
+    transform: scale(.6) translateY(-15px);
   }
 
   ${({ hasValue }) => hasValue && css` /* Esse cara é reponsável por matar o label acima do campo caso tenha conteúdo preenchido no campo */
@@ -71,13 +71,14 @@ const Input = styled.input`
 `;
 
 function FormField({
-  label, type, name, value, onChange, as,
+  label, type, name, value, onChange, suggestions
 }) { /* Este { label, type, name, value, onChange } é uma desestruturação da variável "props" */
   const fieldId = `id_${name}`;
   const isTextArea = type === 'textarea';
   const tag = isTextArea ? 'textarea' : 'input';
 
   const hasValue = Boolean(value.length);
+  const hasSuggestions = Boolean(suggestions.length);
 
   return (
     <FormFieldWrapper>
@@ -92,11 +93,26 @@ function FormField({
           value={value}
           hasValue={hasValue}
           onChange={onChange}
+          autoComplete={hasSuggestions ? 'off' : 'on'}
+          list={hasSuggestions ? `suggestionFor_${fieldId}` : 'on'}
         />
         <Label.Text>
           {label}
           :
         </Label.Text>
+        {
+          hasSuggestions && (
+            <datalist id={`suggestionFor_${fieldId}`}>
+              {
+                suggestions.map((suggestion) => (
+                  <option value={suggestion} key={`suggestionFor_${fieldId}_option${suggestion}`}>
+                    {suggestion}
+                  </option>
+                ))
+              }
+            </datalist>
+          )
+        }
       </Label>
     </FormFieldWrapper>
   );
@@ -106,6 +122,7 @@ FormField.defaultProps = {
   type: 'text',
   value: '',
   onChange: () => {},
+  suggestions: [],
 };
 
 FormField.propTypes = {
@@ -114,6 +131,7 @@ FormField.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  suggestions: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default FormField;
